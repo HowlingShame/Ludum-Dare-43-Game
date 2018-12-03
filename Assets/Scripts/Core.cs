@@ -167,6 +167,7 @@ public class Core : GLMonoBehaviour
 
 	public void PlayLevelTransiton()
 	{
+		m_SwapPlane.SetActive(true);
 		m_SwapPlane.transform.position = new Vector3(0, 460);
 		iTween.MoveTo(m_SwapPlane.gameObject, iTween.Hash("position", new Vector3(0, 0), "easeType", "easeInOutSine", "oncomplete", "GoToNextLevel" , "oncompletetarget", gameObject));
 	}
@@ -220,6 +221,7 @@ public class Core : GLMonoBehaviour
 
 			m_NextLevelData = new NextLevelData(){ m_Depth = m_NextLevelData.m_Depth + 1 };
 			m_ProgressBar.GetComponentInChildren<Text>().text = "Level " + m_NextLevelData.m_Depth;
+			
 		}
 		else
 		{
@@ -237,7 +239,6 @@ public class Core : GLMonoBehaviour
 			m_ProgressBar.gameObject.SetActive(false);
 			SceneManager.UnloadSceneAsync(m_StartGameScene);
 			SceneManager.LoadScene(m_LoseGameScene, LoadSceneMode.Single);
-			m_NextLevelData = new NextLevelData(){ m_Depth = 1 };
 		}
 	}
 	
@@ -268,6 +269,7 @@ public class Core : GLMonoBehaviour
 		m_ProgressBar.Apply(1000.0f, true);
 		m_Doors = GameObject.Find("Doors");
 		m_NextLevelData = new NextLevelData(){ m_Depth = 0 };
+		m_ProgressBar.GetComponentInChildren<Text>().text = "Level " + m_NextLevelData.m_Depth;
 
 		//transform.Find("UI").Find("Start").gameObject.SetActive(false);
 		m_UI.gameObject.SetActive(false);

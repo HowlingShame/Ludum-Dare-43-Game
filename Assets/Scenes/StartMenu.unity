@@ -455,7 +455,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 24300002, guid: dea57ef6fee01ac4b9f920a6dca7049f,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: be745bf799b10a04ebf64b0ea593a075, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.6
   m_Pitch: 1
   Loop: 1
@@ -550,6 +550,7 @@ GameObject:
   - component: {fileID: 187316937}
   - component: {fileID: 187316938}
   - component: {fileID: 187316939}
+  - component: {fileID: 187316940}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -568,8 +569,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 802711854}
-  - {fileID: 731106184}
   - {fileID: 1712865563}
+  - {fileID: 731106184}
   - {fileID: 723934442}
   m_Father: {fileID: 869458064}
   m_RootOrder: 2
@@ -615,6 +616,27 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &187316940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 187316936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 1
+  m_ReferencePixelsPerUnit: 32
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 640, y: 360}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
 --- !u!1 &253536693
 GameObject:
   m_ObjectHideFlags: 0
@@ -988,13 +1010,13 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 187316937}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -355.9, y: 417}
-  m_SizeDelta: {x: 811.8, y: 472.9}
-  m_Pivot: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 201.75, y: 1942.6}
+  m_SizeDelta: {x: 7104.3, y: 497.8}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &731106185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1471,6 +1493,7 @@ MonoBehaviour:
     m_RandomSizeMax: 1.1
     m_RandomPosMin: {x: -0.2, y: -0.2}
     m_RandomPosMax: {x: 0.2, y: 0.2}
+    m_DoorDurabilityRange: {x: -1, y: 1}
     m_EscapeDoorChanse:
       serializedVersion: 2
       m_Curve:
@@ -1558,6 +1581,30 @@ MonoBehaviour:
       - serializedVersion: 3
         time: 1
         value: 0.1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_ClickPower:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0.5
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -2303,7 +2350,7 @@ Transform:
   - {fileID: 1702725645}
   - {fileID: 1019429438}
   m_Father: {fileID: 187316937}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1712865564
 MonoBehaviour:

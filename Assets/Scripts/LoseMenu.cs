@@ -20,10 +20,11 @@ public class LoseMenu : GLMonoBehaviour
 	public Text			m_SacrificeCount;
 		 
 
-/*	public const float c_TimeScoreMultiplier;
-	public const float c_LevelScoreMultiplier;
-	public const float c_DoorOpenScoreMultiplier;
-	public const float c_ClickOpenScoreMultiplier;*/
+	public const float c_TimeScoreMultiplier = 1.0f;
+	public const float c_LevelScoreMultiplier = 40.0f;
+	public const float c_DoorOpenScoreMultiplier = 6.0f;
+	public const float c_ClickOpenScoreMultiplier = 1.0f;
+
 	public Vector3		m_AnimationMove = new Vector3(0, 10.0f, 0);
 	public float		m_AnimationTime = 2.0f;
 	public const float	m_RandomDelay = 3.0f;
@@ -43,7 +44,11 @@ public class LoseMenu : GLMonoBehaviour
 		iTween.MoveBy(m_LoseReason.gameObject, iTween.Hash("amount", m_AnimationMove, "time", m_AnimationTime, "easetype", "easeInOutSine", "looptype", "pingPong", "delay", UnityEngine.Random.Range(0, m_RandomDelay)));
 		iTween.MoveBy(m_Score.gameObject, iTween.Hash("amount", m_AnimationMove, "time", m_AnimationTime, "easetype", "easeInOutSine", "looptype", "pingPong", "delay", UnityEngine.Random.Range(0, m_RandomDelay)));
 		
-		//m_Score.text += ": " + Core.Instance.m_PlayerInfo.;
+		m_Score.text += ": " + ((int)(Core.Instance.m_PlayerInfo.m_ClickCount * c_ClickOpenScoreMultiplier 
+			 + Core.Instance.m_PlayerInfo.m_DoorsOpen * c_DoorOpenScoreMultiplier 
+			 + Core.Instance.m_PlayerInfo.m_PlayTime * c_TimeScoreMultiplier 
+			 + Core.Instance.m_NextLevelData.m_Depth * c_LevelScoreMultiplier
+			 )).ToString();
 		m_Time.text += ": " + ((int)Core.Instance.m_PlayerInfo.m_PlayTime) + " sec";
 
 		m_Level.text +=  ":" + Core.Instance.m_NextLevelData.m_Depth;
@@ -61,6 +66,7 @@ public class LoseMenu : GLMonoBehaviour
 	
 	void Update() 
 	{
+		Core.Instance.m_NextLevelData = new Core.NextLevelData(){ m_Depth = 0 };
 		if(Input.anyKeyDown)
 			Core.Instance.StartNewGame();
 	}
