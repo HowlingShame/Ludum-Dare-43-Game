@@ -167,7 +167,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   m_ClickShakeScal: 0.4
   m_DestroyShakeScal: 1.4
-  m_Durability: 1
+  m_Durability: 2
   m_DoorType: 1
 --- !u!222 &222459337608570278
 CanvasRenderer:

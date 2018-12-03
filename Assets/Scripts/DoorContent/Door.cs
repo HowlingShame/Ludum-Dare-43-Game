@@ -23,7 +23,7 @@ public class Door : GLMonoBehaviour , IPointerClickHandler
 	public static readonly Vector3		c_ShakeDirection = new Vector3(0.2f, 0.4f);
 	public float						m_ClickShakeScal = 1.0f;
 	public float						m_DestroyShakeScal = 1.4f;
-	public const float					c_ChickDamage = 0.3f;
+	public const float					c_ChickDamage = 0.4f;
 	
 	public StateMachine<DoorState>		m_StateMachine = new StateMachine<DoorState>();
 

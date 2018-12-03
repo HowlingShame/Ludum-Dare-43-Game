@@ -120,7 +120,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   m_ClickShakeScal: 0.4
   m_DestroyShakeScal: 1.4
-  m_Durability: 1
+  m_Durability: 2
   m_DoorType: 2
 --- !u!114 &114731168353668644
 MonoBehaviour:

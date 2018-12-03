@@ -345,6 +345,8 @@ public class DoorGenerator
 
 	public Vector2			m_RandomPosMin;
 	public Vector2			m_RandomPosMax;
+	public Vector2			m_DoorDurabilityRange = new Vector2(-1, 1);
+	
 
 	//////////////////////////////////////////////////////////////////////////
 	private List<T> implSelect<T>(List<T> input, Func<T, bool> condition)
@@ -396,7 +398,7 @@ public class DoorGenerator
 		return m_ViewPrefabs[candidatIndex];
 	}
 
-	private Door implInstantiate(Door behaviour, DoorContent view)
+	private Door implInstantiate(Door behaviour, DoorContent view, Core.NextLevelData levelData)
 	{
 		var result = GameObject.Instantiate(behaviour);
 
@@ -405,7 +407,7 @@ public class DoorGenerator
 		// randomize size and offset
 		transform.localPosition = new Vector3(UnityEngine.Random.Range(m_RandomPosMin.x, m_RandomPosMax.x), UnityEngine.Random.Range(m_RandomPosMin.y, m_RandomPosMax.y), 0.0f);
 		transform.sizeDelta *= UnityEngine.Random.Range(m_RandomSizeMix, m_RandomSizeMax);
-		
+		result.m_Durability += UnityEngine.Random.Range(m_DoorDurabilityRange.x, m_DoorDurabilityRange.y) * m_ClickPower.Evaluate(levelData.m_Depth * m_DifficultyScale);
 
 		var doorContent = GameObject.Instantiate(view, result.transform);
 		doorContent.UpdateSizes();
@@ -417,6 +419,7 @@ public class DoorGenerator
 	public AnimationCurve		m_DangerDoorChanse = new AnimationCurve(new Keyframe(0, 1), new Keyframe(1, 1));
 	public AnimationCurve		m_LootDoorChanse = new AnimationCurve(new Keyframe(0, 1), new Keyframe(1, 1));
 	public AnimationCurve		m_HumanDoorChanse = new AnimationCurve(new Keyframe(0, 1), new Keyframe(1, 1));
+	public AnimationCurve		m_ClickPower = new AnimationCurve(new Keyframe(0, 1), new Keyframe(1, 1));
 	public float				m_DifficultyScale = 0.1f;
 
 	private DoorType implVote(Core.NextLevelData levelData)
@@ -465,12 +468,25 @@ public class DoorGenerator
 		var result = new List<Door>(c_DoorsCount);
 
 		{	// atleast one escape door
-			result.Add(implInstantiate(implRandomEscapeDoor(), implRandomView()));
+			if(levelData.m_Depth % 4 == 0)
+				result.Add(implInstantiate(implRandomEscapeDoor(), implRandomView(), levelData));
 
-			result.Add(implInstantiate(implGetDoorInstance(implVote(levelData)), implRandomView()));
-			result.Add(implInstantiate(implGetDoorInstance(implVote(levelData)), implRandomView()));
-			result.Add(implInstantiate(implGetDoorInstance(implVote(levelData)), implRandomView()));
-			result.Add(implInstantiate(implGetDoorInstance(implVote(levelData)), implRandomView()));
+			result.Add(implInstantiate(implGetDoorInstance(implVote(levelData)), implRandomView(), levelData));
+			
+			if(levelData.m_Depth % 4 == 1)		// no time make good random
+				result.Add(implInstantiate(implRandomEscapeDoor(), implRandomView(), levelData));
+
+			result.Add(implInstantiate(implGetDoorInstance(implVote(levelData)), implRandomView(), levelData));
+			
+			if(levelData.m_Depth % 4 == 2)
+				result.Add(implInstantiate(implRandomEscapeDoor(), implRandomView(), levelData));
+
+			result.Add(implInstantiate(implGetDoorInstance(implVote(levelData)), implRandomView(), levelData));
+			
+			if(levelData.m_Depth % 4 == 3)
+				result.Add(implInstantiate(implRandomEscapeDoor(), implRandomView(), levelData));
+
+			result.Add(implInstantiate(implGetDoorInstance(implVote(levelData)), implRandomView(), levelData));
 		}
 
 		return result;
