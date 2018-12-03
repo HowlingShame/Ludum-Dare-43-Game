@@ -168,13 +168,13 @@ public class Core : GLMonoBehaviour
 	public void PlayLevelTransiton()
 	{
 		m_SwapPlane.SetActive(true);
-		m_SwapPlane.transform.position = new Vector3(0, 460);
+		m_SwapPlane.transform.position = new Vector3(0, 6.10f);
 		iTween.MoveTo(m_SwapPlane.gameObject, iTween.Hash("position", new Vector3(0, 0), "easeType", "easeInOutSine", "oncomplete", "GoToNextLevel" , "oncompletetarget", gameObject));
 	}
 
 	public void GoToNextLevel()
 	{
-		iTween.MoveTo(m_SwapPlane.gameObject, iTween.Hash("position", new Vector3(0, -460), "easeType", "easeOutSine"));
+		iTween.MoveTo(m_SwapPlane.gameObject, iTween.Hash("position", new Vector3(0, -6.10f), "easeType", "easeOutSine"));
 
 		foreach(var n in m_CurrentLevelHumans)
 			GameObject.Destroy(n);
